@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Media Player</title>
+<style>
+body {
+    background-color: #222;
+    color: white;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+button {
+    padding: 10px 20px;
+    margin: 8px;
+    font-size: 16px;
+}
+video {
+    max-width: 800px;
+    width: 90%;
+}
+</style>
+</head>
+<body>
+
+<h1>My Media Player</h1>
+
+<h2>Music</h2>
+<button onclick="playAudio('song1.mp3')">Song 1</button>
+<button onclick="playAudio('song2.mp3')">Song 2</button>
+
+<h2>Videos</h2>
+<button onclick="playVideo('video1.mp4')">Video 1</button>
+<button onclick="playVideo('video2.mp4')">Video 2</button>
+
+<br><br>
+<button onclick="stopAll()">Stop</button>
+
+<hr>
+
+<audio id="audioPlayer" controls loop></audio>
+
+<br><br>
+
+<video id="videoPlayer" controls loop></video>
+
+<script>
+function playAudio(file) {
+    let audio = document.getElementById("audioPlayer");
+    let video = document.getElementById("videoPlayer");
+
+    video.pause();
+    video.src = "";
+
+    audio.src = file;
+    audio.play();
+}
+
+function playVideo(file) {
+    let audio = document.getElementById("audioPlayer");
+    let video = document.getElementById("videoPlayer");
+
+    audio.pause();
+    audio.src = "";
+
+    video.src = file;
+    video.play();
+}
+
+function stopAll() {
+    document.getElementById("audioPlayer").pause();
+    document.getElementById("videoPlayer").pause();
+}
+</script>
+
+</body>
+</html>
