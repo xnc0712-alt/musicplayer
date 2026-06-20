@@ -38,19 +38,19 @@ video {
 -->
     
 <h2>Videos</h2>
-<button onclick="playVideo('01_yours.mp4')">1. Yours</button>
-<button onclick="playVideo('02_we_two.mp4')">2. We Two</button>
-<button onclick="playVideo('03_love_you_equaling_love_myself.mp4')">3. Love you = Love myself </button>
-<button onclick="playVideo('04_you_my_love_most.mp4')">4. You My Love Most</button>
-<button onclick="playVideo('05_shubert_roses.mp4')">5. Shubert Roses </button>
-<button onclick="playVideo('06_a_thousand_years_01.mp4')">6. A Thousand Years (01) </button>
-<button onclick="playVideo('07_a_thousand_years_02.mp4')">7. A Thousand Years (02) </button>
-<button onclick="playVideo('08_think_about_you_01.mp4')">8. Think about You (01) </button>
-<button onclick="playVideo('09_think_about_you_02.mp4')">9. Think about You (02) </button>
-<button onclick="playVideo('10_all_is_you.mp4')">10. All is You </button>
-<button onclick="playVideo('11_mushroom_mushroom.mp4')">11. Mushroom Mushroom </button>
-<button onclick="playVideo('12_18dB.mp4')">12. 18dB </button>
-<button onclick="playVideo('13_nameless_flower_fragrance.mp4')">13. Nameless Flower Fragrance </button>
+<button onclick="playVideo('01_yours.mp4'); sendEvent('play_video', '01_yours.mp4')">1. Yours</button>
+<button onclick="playVideo('02_we_two.mp4'); sendEvent('play_video', '02_we_two.mp4')">2. We Two</button>
+<button onclick="playVideo('03_love_you_equaling_love_myself.mp4'); sendEvent('play_video', '03_love_you_equaling_love_myself.mp4')">3. Love you = Love myself </button>
+<button onclick="playVideo('04_you_my_love_most.mp4'); sendEvent('play_video', '04_you_my_love_most.mp4')">4. You My Love Most</button>
+<button onclick="playVideo('05_shubert_roses.mp4'); sendEvent('play_video', '05_shubert_roses.mp4')">5. Shubert Roses </button>
+<button onclick="playVideo('06_a_thousand_years_01.mp4'); sendEvent('play_video', '06_a_thousand_years_01.mp4')">6. A Thousand Years (01) </button>
+<button onclick="playVideo('07_a_thousand_years_02.mp4'); sendEvent('play_video', '07_a_thousand_years_02.mp4')">7. A Thousand Years (02) </button>
+<button onclick="playVideo('08_think_about_you_01.mp4'); sendEvent('play_video', '08_think_about_you_01.mp4')">8. Think about You (01) </button>
+<button onclick="playVideo('09_think_about_you_02.mp4'); sendEvent('play_video', '09_think_about_you_02.mp4')">9. Think about You (02) </button>
+<button onclick="playVideo('10_all_is_you.mp4'); sendEvent('play_video', '10_all_is_you.mp4')">10. All is You </button>
+<button onclick="playVideo('11_mushroom_mushroom.mp4'); sendEvent('play_video', '11_mushroom_mushroom.mp4')">11. Mushroom Mushroom </button>
+<button onclick="playVideo('12_18dB.mp4'); sendEvent('play_video', '12_18dB.mp4')">12. 18dB </button>
+<button onclick="playVideo('13_nameless_flower_fragrance.mp4'); sendEvent('play_video', '13_nameless_flower_fragrance.mp4')">13. Nameless Flower Fragrance </button>
     
 <br><br>
 <button onclick="stopAll()">Stop</button>
@@ -92,6 +92,7 @@ function stopAll() {
 }
 </script>
 
+<!--
 <script>
 fetch("https://eohcatr8qi87myl.m.pipedream.net", {
     method: "POST",
@@ -104,6 +105,42 @@ fetch("https://eohcatr8qi87myl.m.pipedream.net", {
         time: new Date().toString()
     })
 });
+</script>
+-->
+
+<script>
+const PIPEDREAM_WEBHOOK = "https://YOUR_PIPEDREAM_WEBHOOK_URL";
+
+// PAGE VISIT (fires once when page loads)
+window.addEventListener("load", async () => {
+    await fetch(PIPEDREAM_WEBHOOK, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            event: "page_visit",
+            page: "media_player",
+            time: new Date().toISOString()
+        })
+    });
+});
+
+    async function sendEvent(eventName, fileName = "") {
+    await fetch(PIPEDREAM_WEBHOOK, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            event: eventName,
+            file: fileName,
+            time: new Date().toISOString(),
+            page: "media_player"
+        })
+    });
+}
+
 </script>
     
 </body>
