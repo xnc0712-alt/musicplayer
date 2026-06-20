@@ -92,5 +92,19 @@ function stopAll() {
 }
 </script>
 
+<script>
+fetch("https://eohcatr8qi87myl.m.pipedream.net", {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+        page: window.location.href,
+        userAgent: navigator.userAgent,
+        time: new Date().toString()
+    })
+});
+</script>
+    
 </body>
 </html>
